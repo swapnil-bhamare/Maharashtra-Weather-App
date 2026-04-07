@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Maharashtra Weather App</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
+    <!-- External UI Icons -->
+    <script src="https://unpkg.com/feather-icons"></script>
+</head>
+<body>
+
+    <!-- ── Header (Top Bar) ── -->
+    <header class="top-nav">
+        <div class="nav-brand">
+            <span class="brand-emoji">🌤️</span>
+            <h1>Maharashtra <span class="brand-accent">Weather</span></h1>
+        </div>
+        <div class="nav-actions">
+            <nav class="nav-links">
+                <a href="#" class="active" data-i18n="nav_home">Home</a>
+            </nav>
+            <button id="lang-toggle" class="nav-btn lang-btn">
+                <span>मराठी / EN</span>
+            </button>
+        </div>
+    </header>
+
+    <!-- ── Main Dashboard Content ── -->
+    <main class="dashboard-wrapper">
+        
+        <!-- 🟦 LEFT SECTION: Welcome & Search -->
+        <section class="left-col">
+            <div class="welcome-text">
+                <p class="greeting" data-i18n="welcome_to">Welcome to</p>
+                <h2 class="app-title" data-i18n="app_title">Maharashtra<br>Weather App</h2>
+                <p class="app-desc" data-i18n="app_desc">Get real-time weather updates and 7-day forecasts for 30 major cities of Maharashtra.</p>
+            </div>
+
+            <div class="search-panel glass-panel">
+                <h3 data-i18n="search_title">Search Weather</h3>
+                <div class="search-box">
+                    <i data-feather="search" class="s-icon"></i>
+                    <div style="position: relative; flex: 1; display: flex; align-items: center;">
+                        <input type="text" id="city-input" style="width: 100%; border: none; outline: none; padding: 0.75rem 0.5rem; font-size: 1rem; color: #1e293b; font-weight: 500;" placeholder="Enter city name..." autocomplete="off" data-i18n-placeholder="search_placeholder">
+                        <div id="suggestions-dropdown" class="suggestions-list hidden"></div>
+                    </div>
+                    <button class="search-btn" onclick="searchFromHistory()" data-i18n="search_btn">Search</button>
+                </div>
+                
+
+                <div id="loading-indicator" class="msg hidden" data-i18n="loading">Loading...</div>
+                <div id="error-message" class="msg err hidden"></div>
+            </div>
+        </section>
+
+        <!-- 📦 RIGHT SECTION: Weather Cards -->
+        <section class="right-col">
+            
+            <div id="weather-content" class="hidden">
+                <!-- Current Weather Card -->
+                <div class="current-weather-card glass-panel">
+                    <div class="location-header">
+                        <i data-feather="map-pin"></i>
+                        <div>
+                            <h2 id="result-city">Chhatrapati Sambhaji Nagar</h2>
+                            <p id="result-datetime">Monday, 12 May 2025 | 2:15 PM</p>
+                        </div>
+                    </div>
+
+                    <div class="middle-display">
+                        <div class="main-emoji" id="result-icon-emoji">☀️</div>
+                        <div class="main-temperature">
+                            <div class="temp-row">
+                                <span id="result-temp" class="degree-huge">32</span><span class="unit">°C</span>
+                            </div>
+                            <p id="result-desc">Partly Cloudy</p>
+                        </div>
+                    </div>
+
+                    <hr class="thin-divider" />
+
+                    <div class="bottom-stats">
+                        <div class="stat-col">
+                            <i data-feather="wind"></i>
+                            <div class="stat-info">
+                                <span data-i18n="wind">Wind</span>
+                                <strong id="result-wind">10 km/h</strong>
+                            </div>
+                        </div>
+                        <div class="v-divider"></div>
+                        <div class="stat-col">
+                            <i data-feather="droplet"></i>
+                            <div class="stat-info">
+                                <span data-i18n="humidity">Humidity</span>
+                                <strong id="result-humidity">70%</strong>
+                            </div>
+                        </div>
+                        <div class="v-divider"></div>
+                        <div class="stat-col">
+                            <i data-feather="clock"></i>
+                            <div class="stat-info">
+                                <span data-i18n="local_time">Local Time</span>
+                                <strong id="result-time">2:15 PM</strong>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 7-Day Forecast Card -->
+                <div class="forecast-card glass-panel">
+                    <h3 data-i18n="forecast_title">7-Day Forecast</h3>
+                    <div class="forecast-grid" id="forecast-container">
+                        <!-- Populated by JS -->
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Default Empty State -->
+            <div id="landing-content" class="empty-state glass-panel">
+                <i data-feather="sun" class="empty-icon"></i>
+                <p data-i18n="empty_state">Search for a city or click a popular city tag to see the weather dashboard.</p>
+            </div>
+
+        </section>
+    </main>
+
+    <!-- ── Footer ── -->
+    <footer class="app-footer">
+        © 2026 <span data-i18n="footer_text">Maharashtra Weather App | Built with ❤️ using Flask & Open-Meteo API</span>
+    </footer>
+
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+    <script>
+      feather.replace(); // Initialize feather icons
+    </script>
+</body>
+</html>
